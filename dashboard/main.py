@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import time
+from query import query_athena
 
 # Streamlit title
 st.title("Data Visualization")
@@ -9,26 +10,40 @@ st.title("Data Visualization")
 # Refresh interval (in seconds)
 REFRESH_INTERVAL = 10
 
-# Sample static data
-static_data = [
-    {"time": "2024-11-01T00:00:00Z", "value": 10},
-    {"time": "2024-11-01T01:00:00Z", "value": 15},
-    {"time": "2024-11-01T02:00:00Z", "value": 12},
-    {"time": "2024-11-01T03:00:00Z", "value": 25},
-    {"time": "2024-11-01T04:00:00Z", "value": 20},
-]
-
 # Main app loop
 while True:
-    # Create a DataFrame from static data
-    df = pd.DataFrame(static_data)
+    
+    sql = """
+    SELECT "_timestamp", "accelerometer-x", "accelerometer-y" 
+    FROM "phone-data"."phone-data"
+    ORDER BY "_timestamp" DESC
+    LIMIT 100;
+    """
+    
+    # Query Athena for data
+    df = query_athena(sql)
+    
+    df = df.sort_values(by="_timestamp")
 
-    # Display waveform plot
+    # Check if the DataFrame is not empty
     if not df.empty:
-        fig = px.line(df, x="time", y="value", title="Waveform")
+        # Melt the DataFrame to reshape for line plot
+        df_melted = df.melt(id_vars=["_timestamp"], value_vars=["accelerometer-x", "accelerometer-y"], 
+                            var_name="Axis", value_name="Value")
+
+        # Create a line plot with different colors for each column
+        fig = px.line(
+            df_melted, 
+            x="_timestamp", 
+            y="Value", 
+            color="Axis",  # Different color for each axis
+            title="Accelerometer Data (X and Y Axes)"
+        )
+
+        # Display the plot in Streamlit
         st.plotly_chart(fig)
 
-        # Display table
+        # Display the original table
         st.subheader("Data Table")
         st.write(df)
     else:

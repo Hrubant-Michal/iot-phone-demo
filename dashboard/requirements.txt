@@ -2,3 +2,14 @@ streamlit
 pandas
 plotly
 python-dotenv
+boto3
+pyarrow
+pyiceberg
+boto3
+mypy_boto3_glue
+sqlalchemy
+pandas
+flask
+requests
+flask_httpauth
+pyathena
