@@ -29,7 +29,7 @@ app = Application(
     consumer_group=os.environ["CONSUMER_GROUP"], 
     auto_offset_reset = "earliest",
     commit_interval=1,
-    commit_every=1)
+    commit_every=100)
 
 input_topic = app.topic(os.environ["input"])
 
