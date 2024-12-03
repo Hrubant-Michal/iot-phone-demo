@@ -29,7 +29,7 @@ variables:
   - name: table_name
     inputType: FreeText
     description: The table to publish data to
-    defaultValue: phone-data
+    defaultValue: phone-data.phone-data
     required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
