@@ -1,28 +1,39 @@
-from quixstreams import Application
-import os
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import time
 
-from dotenv import load_dotenv
-load_dotenv()
+# Streamlit title
+st.title("Data Visualization")
 
-# you decide what happens here!
-def sink(message):
-    value = message['mykey']
-    # write_to_db(value) # implement your logic to write data or send alerts etc
+# Refresh interval (in seconds)
+REFRESH_INTERVAL = 10
 
-    # for more help using QuixStreams see the docs:
-    # https://quix.io/docs/quix-streams/introduction.html
+# Sample static data
+static_data = [
+    {"time": "2024-11-01T00:00:00Z", "value": 10},
+    {"time": "2024-11-01T01:00:00Z", "value": 15},
+    {"time": "2024-11-01T02:00:00Z", "value": 12},
+    {"time": "2024-11-01T03:00:00Z", "value": 25},
+    {"time": "2024-11-01T04:00:00Z", "value": 20},
+]
 
-app = Application(consumer_group="destination-v1", auto_offset_reset = "latest")
+# Main app loop
+while True:
+    # Create a DataFrame from static data
+    df = pd.DataFrame(static_data)
 
-input_topic = app.topic(os.environ["input"])
+    # Display waveform plot
+    if not df.empty:
+        fig = px.line(df, x="time", y="value", title="Waveform")
+        st.plotly_chart(fig)
 
-sdf = app.dataframe(input_topic)
+        # Display table
+        st.subheader("Data Table")
+        st.write(df)
+    else:
+        st.write("No data available.")
 
-# call the sink function for every message received.
-sdf = sdf.update(sink)
-
-# you can print the data row if you want to see what's going on.
-sdf.print(metadata=True)
-
-if __name__ == "__main__":
-    app.run()
+    # Refresh every REFRESH_INTERVAL seconds
+    time.sleep(REFRESH_INTERVAL)
+    st.rerun()
