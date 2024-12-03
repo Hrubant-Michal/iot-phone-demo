@@ -34,6 +34,7 @@ app = Application(
 input_topic = app.topic(os.environ["input"])
 
 sdf = app.dataframe(input_topic)
+sdf["battery-lowPowerMode"] = 0
 sdf.sink(big_query_sink)
 
 if __name__ == "__main__":
