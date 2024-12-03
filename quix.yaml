@@ -192,7 +192,7 @@ deployments:
         inputType: FreeText
         description: The table to publish data to
         required: true
-        value: phone-data
+        value: phone-data.phone-data
 
 # This section describes the Topics of the data pipeline
 topics:
