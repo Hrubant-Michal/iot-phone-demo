@@ -9,7 +9,7 @@ variables:
   - name: PROJECT_ID
     inputType: FreeText
     description: The BigQuery GCP Project ID
-    defaultValue: phonedata
+    defaultValue: trim-keep-443619-r9
     required: true
   - name: DATASET_ID
     inputType: FreeText
