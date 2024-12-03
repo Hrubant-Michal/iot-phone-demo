@@ -204,12 +204,7 @@ deployments:
     publicAccess:
       enabled: true
       urlPrefix: dashboard
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        required: false
-        value: transform
+    variables: []
 
 # This section describes the Topics of the data pipeline
 topics:
