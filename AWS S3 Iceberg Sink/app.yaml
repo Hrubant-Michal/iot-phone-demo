@@ -1,0 +1,37 @@
+name: AWS S3 Iceberg Sink
+language: python
+variables:
+  - name: input
+    inputType: InputTopic
+    description: This is the input topic
+    defaultValue: sensor-data
+    required: true
+  - name: AWS_S3_URI
+    inputType: FreeText
+    description: The URI or URL to your S3 bucket
+    defaultValue: s3://michalphonedata/iceberg/
+    required: true
+  - name: AWS_REGION
+    inputType: FreeText
+    description: The region of your S3 bucket
+    defaultValue: eu-north-1
+    required: true
+  - name: AWS_SECRET_ACCESS_KEY
+    inputType: Secret
+    description: Your AWS secret
+    defaultValue: AWS_SECRET_ACCESS_KEY
+    required: true
+  - name: AWS_ACCESS_KEY_ID
+    inputType: Secret
+    description: Your AWS Access Key
+    defaultValue: AWS_ACCESS_ID
+    required: true
+  - name: table_name
+    inputType: FreeText
+    description: The table to publish data to
+    defaultValue: phone-data
+    required: true
+dockerfile: dockerfile
+runEntryPoint: main.py
+defaultFile: main.py
+libraryItemId: s3-iceberg-destination
