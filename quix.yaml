@@ -233,7 +233,7 @@ deployments:
         inputType: FreeText
         description: Location of BigQuery dataset
         required: true
-        value: eu-central2
+        value: europe-central2
       - name: TABLE_NAME
         inputType: FreeText
         description: Name of the destination table.
