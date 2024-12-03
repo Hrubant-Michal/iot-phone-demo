@@ -154,6 +154,45 @@ deployments:
         description: ''
         required: true
         secretKey: influx_token
+  - name: AWS S3 Iceberg Sink
+    application: AWS S3 Iceberg Sink
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: This is the input topic
+        required: true
+        value: sensor-data
+      - name: AWS_S3_URI
+        inputType: FreeText
+        description: The URI or URL to your S3 bucket
+        required: true
+        value: s3://michalphonedata/iceberg/
+      - name: AWS_REGION
+        inputType: FreeText
+        description: The region of your S3 bucket
+        required: true
+        value: eu-north-1
+      - name: AWS_SECRET_ACCESS_KEY
+        inputType: Secret
+        description: Your AWS secret
+        required: true
+        secretKey: AWS_SECRET_ACCESS_KEY
+      - name: AWS_ACCESS_KEY_ID
+        inputType: Secret
+        description: Your AWS Access Key
+        required: true
+        secretKey: AWS_ACCESS_ID
+      - name: table_name
+        inputType: FreeText
+        description: The table to publish data to
+        required: true
+        value: phone-data
 
 # This section describes the Topics of the data pipeline
 topics:
