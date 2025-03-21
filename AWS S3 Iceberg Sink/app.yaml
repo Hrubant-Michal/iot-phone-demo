@@ -19,7 +19,7 @@ variables:
   - name: AWS_SECRET_ACCESS_KEY
     inputType: Secret
     description: Your AWS secret
-    defaultValue: AWS_SECRET_ACCESS_KEY
+    defaultValue: ADMIN_PASSWORD
     required: true
   - name: AWS_ACCESS_KEY_ID
     inputType: Secret
