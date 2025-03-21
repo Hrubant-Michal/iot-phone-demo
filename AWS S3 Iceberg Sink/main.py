@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+print(os.environ["AWS_SECRET_ACCESS_KEY"])
+
 app = Application(consumer_group="destination-v1", 
                   auto_offset_reset = "earliest",
                   commit_interval=5)
